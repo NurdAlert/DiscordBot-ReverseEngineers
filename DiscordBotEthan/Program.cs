@@ -71,7 +71,7 @@ namespace DiscordBotEthan {
 
         private static async Task MainAsync() {
             discord = new DiscordClient(new DiscordConfiguration {
-                Token = "",
+                Token = "", // Don't forget to delete this in push
                 TokenType = TokenType.Bot,
                 MinimumLogLevel = LogLevel.Information,
                 Intents = DiscordIntents.GuildMembers | DiscordIntents.AllUnprivileged
@@ -155,7 +155,7 @@ namespace DiscordBotEthan {
                     case DSharpPlus.CommandsNext.Exceptions.ChecksFailedException _:
                         await args.Context.RespondAsync("The FBI has been contacted (You don't have **the** (Thx Sven for correction) rights for that **c**ommand (Another correction))");
                         break;
-                }
+                } 
             };
 
             commands.SetHelpFormatter<CustomHelpFormatter>();
