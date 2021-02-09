@@ -155,10 +155,6 @@ namespace DiscordBotEthan {
                         await args.Context.RespondAsync("Idk what the fuck you want to do with that Command (Arguments are faulty)");
                         break;
 
-                    case DSharpPlus.CommandsNext.Exceptions.CommandNotFoundException _:
-                        await args.Context.RespondAsync("Wat? (Couldn't find the Command use .Help)");
-                        break;
-
                     case DSharpPlus.CommandsNext.Exceptions.ChecksFailedException _:
                         await args.Context.RespondAsync("The FBI has been contacted (You don't have **the** (Thx Sven for correction) rights for that **c**ommand (Another correction))");
                         break;
