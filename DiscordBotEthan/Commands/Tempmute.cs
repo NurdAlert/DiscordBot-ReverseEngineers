@@ -40,7 +40,7 @@ namespace DiscordBotEthan.Commands {
 
             DiscordEmbedBuilder TempMute = new DiscordEmbedBuilder {
                 Title = $"TempMute | {member.Username}",
-                Description = $"**{member.Mention} has been muted for {time}\nUnmuted on {DateTime.Now.AddMilliseconds(Time):MM/dd/yyyy HH:mm}**",
+                Description = $"**{member.Mention} has been muted for {time}\nUnmuted on {DateTime.Now.AddMilliseconds(Time):dd.MM.yyyy HH:mm}**",
                 Color = Program.EmbedColor,
                 Footer = new DiscordEmbedBuilder.EmbedFooter { Text = "Made by JokinAce 😎" },
                 Timestamp = DateTimeOffset.Now

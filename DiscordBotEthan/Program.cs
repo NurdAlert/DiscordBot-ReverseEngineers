@@ -61,7 +61,7 @@ namespace DiscordBotEthan {
 
             DiscordEmbedBuilder Warns = new DiscordEmbedBuilder {
                 Title = $"Warns | {member.Username}",
-                Description = $"**{member.Mention} has been warned for the following Reason:**\n{reason}\n**Muted: {(IsMuted ? $"True\nUnmuted on {DateTime.Now.AddMilliseconds(86400000):MM/dd/yyyy HH:mm}" : "False")}**",
+                Description = $"**{member.Mention} has been warned for the following Reason:**\n{reason}\n**Muted: {(IsMuted ? $"True\nUnmuted on {DateTime.Now.AddMilliseconds(86400000):dd.MM.yyyy HH:mm}" : "False")}**",
                 Color = EmbedColor,
                 Footer = new DiscordEmbedBuilder.EmbedFooter { Text = "Made by JokinAce 😎" },
                 Timestamp = DateTimeOffset.Now
