@@ -71,7 +71,7 @@ namespace DiscordBotEthan {
 
         private static async Task MainAsync() {
             discord = new DiscordClient(new DiscordConfiguration {
-                Token = "", // Don't forget to delete this in push
+                Token = "",
                 TokenType = TokenType.Bot,
                 MinimumLogLevel = LogLevel.Information,
                 Intents = DiscordIntents.GuildMembers | DiscordIntents.AllUnprivileged
