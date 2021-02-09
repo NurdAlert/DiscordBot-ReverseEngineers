@@ -23,7 +23,6 @@ namespace DiscordBotEthan {
         public static DiscordColor EmbedColor = new DiscordColor("#3299E0");
         public static readonly ulong MutedRole = 765286908133638204;
         public static readonly Random gen = new Random();
-        public static bool DebugMod = false;
 
         private static readonly string[] Statuses = new[] { "Allah is watchin", "Despacito", "Fuck", "Janitor cleanup", "Cheaing in CSGO", "EAC Bypass" };
         private static readonly ulong LearnerRole = 734242782092329101;
@@ -137,8 +136,6 @@ namespace DiscordBotEthan {
                         await Warn(args.Channel, args.Author, "Invite Link");
                     } else if (args.Message.Content.ToLower().Contains("nigger") || args.Message.Content.ToLower().Contains("nigga")) {
                         await args.Channel.SendMessageAsync("Keep up the racism and you will get banned\nUse nig, nibba instead atleast");
-                    } else if (DebugMod == true && args.Author.Id == 447781010315149333) {
-                        await args.Channel.SendMessageAsync(args.Message.Content);
                     }
                 });
                 return Task.CompletedTask;
