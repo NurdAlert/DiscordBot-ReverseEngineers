@@ -135,6 +135,7 @@ namespace DiscordBotEthan {
                         await args.Message.DeleteAsync();
                         await Warn(args.Channel, args.Author, "Invite Link");
                     } else if (args.Message.Content.ToLower().Contains("nigger") || args.Message.Content.ToLower().Contains("nigga")) {
+                        await Warn(args.Channel, args.Author, "Saying the N-Word");
                         await args.Channel.SendMessageAsync("Keep up the racism and you will get banned\nUse nig, nibba instead atleast");
                     }
                 });
