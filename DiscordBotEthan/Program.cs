@@ -3,9 +3,6 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Converters;
 using DSharpPlus.CommandsNext.Entities;
 using DSharpPlus.Entities;
-using DSharpPlus.Interactivity;
-using DSharpPlus.Interactivity.Enums;
-using DSharpPlus.Interactivity.Extensions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -161,11 +158,6 @@ namespace DiscordBotEthan {
 
             commands.SetHelpFormatter<CustomHelpFormatter>();
             commands.RegisterCommands(Assembly.GetExecutingAssembly());
-
-            discord.UseInteractivity(new InteractivityConfiguration() {
-                PollBehaviour = PollBehaviour.KeepEmojis,
-                Timeout = TimeSpan.FromSeconds(180)
-            });
 
             await discord.ConnectAsync();
             await Task.Delay(-1);
