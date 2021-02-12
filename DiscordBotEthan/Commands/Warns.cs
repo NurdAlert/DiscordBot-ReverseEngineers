@@ -42,7 +42,7 @@ namespace DiscordBotEthan.Commands {
                     }
 
                 case "add":
-                    await Program.Warn(ctx.Channel, member, reason);
+                    await Misc.Warn(ctx.Channel, member, reason);
                     break;
 
                 default:
