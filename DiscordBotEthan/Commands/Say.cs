@@ -1,17 +1,21 @@
 ﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
+using DSharpPlus.Entities;
 using System.Threading.Tasks;
 
 namespace DiscordBotEthan.Commands {
 
     public class Say : BaseCommandModule {
 
-        [Command("Say"), RequirePermissions(DSharpPlus.Permissions.Administrator), Hidden]
+        [Command("Say"), Cooldown(1, 10, CooldownBucketType.User), Hidden]
         public async Task MirrorCommand(CommandContext ctx, [RemainingText] string message) {
-            if (ctx.Member.Id != 447781010315149333) {
-                return;
+            await ctx.Message.DeleteAsync();
+            if (ctx.Message.MessageType == DSharpPlus.MessageType.Reply) {
+                _ = await new DiscordMessageBuilder()
+                    .WithContent(message)
+                    .WithReply(ctx.Message.ReferencedMessage.Id, true)
+                    .SendAsync(ctx.Channel);
             } else {
-                await ctx.Message.DeleteAsync();
                 await ctx.RespondAsync(message);
             }
         }
