@@ -68,7 +68,7 @@ namespace DiscordBotEthan {
 
         private static async Task MainAsync() {
             discord = new DiscordClient(new DiscordConfiguration {
-                Token = "",
+                Token = "ODAxNTQ4MjY0NzA0OTY2NzA3.YAiR_g.1Q16DAvnDrmbrA6vAIJVUHGm-0Q",
                 TokenType = TokenType.Bot,
                 MinimumLogLevel = LogLevel.Information,
                 Intents = DiscordIntents.GuildMembers | DiscordIntents.AllUnprivileged
@@ -76,7 +76,7 @@ namespace DiscordBotEthan {
 
             discord.Ready += (dc, args) => {
                 _ = Task.Run(() => ThreadsShit.StatusChanger(dc));
-                return Task.CompletedTask;
+                return Task.CompletedTask;  
             };
 
             discord.GuildMemberAdded += async (dc, args) => {
@@ -118,7 +118,11 @@ namespace DiscordBotEthan {
 
                     if (gen.Next(500) == 1) {
                         using WebClient client = new WebClient();
-                        await args.Channel.SendMessageAsync(client.DownloadString("https://insult.mattbas.org/api/insult"));
+
+                        var msg = await new DiscordMessageBuilder()
+                            .WithContent(client.DownloadString("https://insult.mattbas.org/api/insult"))
+                            .WithReply(args.Message.Id)
+                            .SendAsync(args.Channel);
                     }
 
                     if (args.Message.Attachments.Count > 0) {
@@ -133,7 +137,13 @@ namespace DiscordBotEthan {
                         await Warn(args.Channel, args.Author, "Invite Link");
                     } else if (args.Message.Content.ToLower().Contains("nigger") || args.Message.Content.ToLower().Contains("nigga")) {
                         await Warn(args.Channel, args.Author, "Saying the N-Word");
-                        await args.Channel.SendMessageAsync("Keep up the racism and you will get banned\nUse nig, nibba instead atleast");
+
+
+                        var msg = await new DiscordMessageBuilder()
+                            .WithContent("Keep up the racism and you will get banned\nUse nig, nibba instead atleast")
+                            .WithReply(args.Message.Id, true)
+                            .SendAsync(args.Channel);
+                        //await args.Channel.SendMessageAsync("Keep up the racism and you will get banned\nUse nig, nibba instead atleast");
                     }
                 });
                 return Task.CompletedTask;
@@ -147,11 +157,21 @@ namespace DiscordBotEthan {
             commands.CommandErrored += async (dc, args) => {
                 switch (args.Exception) {
                     case ArgumentException _:
-                        await args.Context.RespondAsync("Idk what the fuck you want to do with that Command (Arguments are faulty)");
+                        //await args.Context.RespondAsync("Idk what the fuck you want to do with that Command (Arguments are faulty)");
+
+                        var ErrorMSG = await new DiscordMessageBuilder()
+                            .WithContent("Idk what the fuck you want to do with that Command (Arguments are faulty)")
+                            .WithReply(args.Context.Message.Id, true)
+                            .SendAsync(args.Context.Channel);
                         break;
 
                     case DSharpPlus.CommandsNext.Exceptions.ChecksFailedException _:
-                        await args.Context.RespondAsync("The FBI has been contacted (You don't have **the** (Thx Sven for correction) rights for that **c**ommand (Another correction))");
+                        var ErrorMSG2 = await new DiscordMessageBuilder()
+                            .WithContent("The FBI has been contacted (You don't have **the** (Thx Sven for correction) rights for that **c**ommand (Another correction))")
+                            .WithReply(args.Context.Message.Id, true)
+                            .SendAsync(args.Context.Channel);
+
+                        //await args.Context.RespondAsync("The FBI has been contacted (You don't have **the** (Thx Sven for correction) rights for that **c**ommand (Another correction))");
                         break;
                 }
             };
