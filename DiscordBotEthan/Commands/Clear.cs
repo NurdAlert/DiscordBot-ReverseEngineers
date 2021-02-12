@@ -20,7 +20,7 @@ namespace DiscordBotEthan.Commands {
                 } catch (DSharpPlus.Exceptions.BadRequestException) {
                     await ctx.RespondAsync("Messages are older then 14 Days\nDiscord API no like do .Clear all instead");
                 }
-            } else if (amount.ToLower() == "all") {
+            } else if (amount.Equals("all", StringComparison.OrdinalIgnoreCase)) {
                 try {
                     var TempPos = ctx.Channel.Position;
                     var NewCh = await ctx.Channel.CloneAsync();

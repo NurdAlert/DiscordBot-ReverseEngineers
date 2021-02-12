@@ -68,7 +68,7 @@ namespace DiscordBotEthan {
 
         private static async Task MainAsync() {
             discord = new DiscordClient(new DiscordConfiguration {
-                Token = "ODAxNTQ4MjY0NzA0OTY2NzA3.YAiR_g.1Q16DAvnDrmbrA6vAIJVUHGm-0Q",
+                Token = "",
                 TokenType = TokenType.Bot,
                 MinimumLogLevel = LogLevel.Information,
                 Intents = DiscordIntents.GuildMembers | DiscordIntents.AllUnprivileged
