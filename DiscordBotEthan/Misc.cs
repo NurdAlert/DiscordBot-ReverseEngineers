@@ -8,6 +8,32 @@ namespace DiscordBotEthan {
 
     public class Misc {
 
+        public static double TimeConverter(string timestring) {
+            return (timestring[^1..].ToLower()) switch {
+                "d" => ConvertDaysToMilliseconds(timestring.Remove(timestring.Length - 1)),
+                "h" => ConvertHoursToMilliseconds(timestring.Remove(timestring.Length - 1)),
+                "m" => ConvertMinutesToMilliseconds(timestring.Remove(timestring.Length - 1)),
+                "s" => ConvertSecondsToMilliseconds(timestring.Remove(timestring.Length - 1)),
+                _ => throw new ArgumentException(),
+            };
+
+            static double ConvertSecondsToMilliseconds(string seconds) {
+                return TimeSpan.FromSeconds(Convert.ToDouble(seconds)).TotalMilliseconds;
+            }
+
+            static double ConvertMinutesToMilliseconds(string minutes) {
+                return TimeSpan.FromMinutes(Convert.ToDouble(minutes)).TotalMilliseconds;
+            }
+
+            static double ConvertHoursToMilliseconds(string hours) {
+                return TimeSpan.FromHours(Convert.ToDouble(hours)).TotalMilliseconds;
+            }
+
+            static double ConvertDaysToMilliseconds(string days) {
+                return TimeSpan.FromDays(Convert.ToDouble(days)).TotalMilliseconds;
+            }
+        }
+
         public static async Task Warn(DiscordChannel channel, DiscordUser member, string reason) {
             var WarnS = await PlayerSystem.GetPlayer(member.Id);
             WarnS.Warns.Add(reason);

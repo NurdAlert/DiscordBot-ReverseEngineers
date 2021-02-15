@@ -48,7 +48,7 @@ namespace DiscordBotEthan {
                 if (gen.Next(500) == 1) {
                     using WebClient client = new WebClient();
 
-                    _  = await new DiscordMessageBuilder()
+                    await new DiscordMessageBuilder()
                         .WithContent(client.DownloadString("https://insult.mattbas.org/api/insult"))
                         .WithReply(args.Message.Id)
                         .SendAsync(args.Channel);
@@ -67,7 +67,7 @@ namespace DiscordBotEthan {
                 } else if (args.Message.Content.ToLower().Contains("nigger") || args.Message.Content.ToLower().Contains("nigga")) {
                     await Misc.Warn(args.Channel, args.Author, "Saying the N-Word");
 
-                    _ = await new DiscordMessageBuilder()
+                    await new DiscordMessageBuilder()
                         .WithContent("Keep up the racism and you will get banned\nUse nig, nibba instead atleast")
                         .WithReply(args.Message.Id, true)
                         .SendAsync(args.Channel);
@@ -103,14 +103,14 @@ namespace DiscordBotEthan {
                 case ArgumentException _:
                     //await args.Context.RespondAsync("Idk what the fuck you want to do with that Command (Arguments are faulty)");
 
-                    _ = await new DiscordMessageBuilder()
+                    await new DiscordMessageBuilder()
                         .WithContent("Idk what the fuck you want to do with that Command (Arguments are faulty)")
                         .WithReply(args.Context.Message.Id, true)
                         .SendAsync(args.Context.Channel);
                     break;
 
                 case DSharpPlus.CommandsNext.Exceptions.ChecksFailedException _:
-                    _ = await new DiscordMessageBuilder()
+                    await new DiscordMessageBuilder()
                         .WithContent("The FBI has been contacted (You don't have **the** (Thx Sven for correction) rights for that **c**ommand (Another correction))")
                         .WithReply(args.Context.Message.Id, true)
                         .SendAsync(args.Context.Channel);

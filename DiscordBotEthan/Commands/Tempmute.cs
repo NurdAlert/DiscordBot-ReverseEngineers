@@ -14,29 +14,8 @@ namespace DiscordBotEthan.Commands {
             var PS = await Program.PlayerSystem.GetPlayer(member.Id);
             PS.Muted = true;
             PS.Save(member.Id);
-            double Time;
 
-            switch (time[^1..].ToLower()) {
-                case "d":
-                    Time = ConvertDaysToMilliseconds(time.Remove(time.Length - 1));
-                    break;
-
-                case "h":
-                    Time = ConvertHoursToMilliseconds(time.Remove(time.Length - 1));
-                    break;
-
-                case "m":
-                    Time = ConvertMinutesToMilliseconds(time.Remove(time.Length - 1));
-                    break;
-
-                case "s":
-                    Time = ConvertSecondsToMilliseconds(time.Remove(time.Length - 1));
-                    break;
-
-                default:
-                    await ctx.RespondAsync("Time is invalid");
-                    return;
-            }
+            double Time = Misc.TimeConverter(time);
 
             DiscordEmbedBuilder TempMute = new DiscordEmbedBuilder {
                 Title = $"TempMute | {member.Username}",
@@ -59,22 +38,6 @@ namespace DiscordBotEthan.Commands {
                     ctx.Client.Logger.LogInformation($"Failed the Tempmute process for {member.Mention}");
                 }
             });
-
-            static double ConvertSecondsToMilliseconds(string seconds) {
-                return TimeSpan.FromSeconds(Convert.ToDouble(seconds)).TotalMilliseconds;
-            }
-
-            static double ConvertMinutesToMilliseconds(string minutes) {
-                return TimeSpan.FromMinutes(Convert.ToDouble(minutes)).TotalMilliseconds;
-            }
-
-            static double ConvertHoursToMilliseconds(string hours) {
-                return TimeSpan.FromHours(Convert.ToDouble(hours)).TotalMilliseconds;
-            }
-
-            static double ConvertDaysToMilliseconds(string days) {
-                return TimeSpan.FromDays(Convert.ToDouble(days)).TotalMilliseconds;
-            }
         }
     }
 }
