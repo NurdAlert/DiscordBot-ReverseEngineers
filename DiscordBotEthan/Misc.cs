@@ -1,6 +1,8 @@
 ﻿using DSharpPlus.Entities;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static DiscordBotEthan.Program;
 
@@ -8,16 +10,21 @@ namespace DiscordBotEthan {
 
     public class Misc {
 
-        public static double TimeConverter(string timestring) {
-            return (timestring[^1..].ToLower()) switch {
-                "d" => ConvertDaysToMilliseconds(timestring.Remove(timestring.Length - 1)),
-                "h" => ConvertHoursToMilliseconds(timestring.Remove(timestring.Length - 1)),
-                "m" => ConvertMinutesToMilliseconds(timestring.Remove(timestring.Length - 1)),
-                "s" => ConvertSecondsToMilliseconds(timestring.Remove(timestring.Length - 1)),
-                _ => throw new ArgumentException(),
-            };
+        public static double TimeConverter(string timestring) { // Takes 7d -> 7 DaysConverter() -> 604,800,000 Milliseconds
 
-            static double ConvertSecondsToMilliseconds(string seconds) {
+            if (timestring.Remove(timestring.Length - 1).Any(x => char.IsLetter(x)))
+                throw new ArgumentException();
+            else {
+                return (timestring[^1..].ToLower()) switch {
+                    "d" => ConvertDaysToMilliseconds(timestring.Remove(timestring.Length - 1)),
+                    "h" => ConvertHoursToMilliseconds(timestring.Remove(timestring.Length - 1)),
+                    "m" => ConvertMinutesToMilliseconds(timestring.Remove(timestring.Length - 1)),
+                    "s" => ConvertSecondsToMilliseconds(timestring.Remove(timestring.Length - 1)),
+                    _ => throw new ArgumentException(),
+                };
+            }
+
+            static double ConvertSecondsToMilliseconds(string seconds) { // NUMBERS ONLY
                 return TimeSpan.FromSeconds(Convert.ToDouble(seconds)).TotalMilliseconds;
             }
 
