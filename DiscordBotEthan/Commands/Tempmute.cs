@@ -31,6 +31,7 @@ namespace DiscordBotEthan.Commands {
                     DiscordRole MutedRole = ctx.Guild.GetRole(Program.MutedRole);
                     await member.GrantRoleAsync(MutedRole);
                     await Task.Delay((int)Time);
+                    var PS = await Program.PlayerSystem.GetPlayer(member.Id);
                     PS.Muted = false;
                     PS.Save(member.Id);
                     await member.RevokeRoleAsync(MutedRole);

@@ -44,7 +44,6 @@ namespace DiscordBotEthan {
         public static async Task Warn(DiscordChannel channel, DiscordUser member, string reason) {
             var WarnS = await PlayerSystem.GetPlayer(member.Id);
             WarnS.Warns.Add(reason);
-            WarnS.Save(member.Id);
 
             bool IsMuted = false;
 
@@ -56,6 +55,7 @@ namespace DiscordBotEthan {
                         await CMember.GrantRoleAsync(muterole);
                         await CMember.SendMessageAsync("You got muted for 24 Hours because you have equal or more then 3 Warns.");
                         await Task.Delay(86400000);
+                        var WarnS = await PlayerSystem.GetPlayer(member.Id);
                         WarnS.Muted = false;
                         WarnS.Save(member.Id);
                         await CMember.RevokeRoleAsync(muterole);
@@ -65,8 +65,8 @@ namespace DiscordBotEthan {
                 });
                 IsMuted = true;
                 WarnS.Muted = true;
-                WarnS.Save(member.Id);
             }
+            WarnS.Save(member.Id);
 
             DiscordEmbedBuilder Warns = new DiscordEmbedBuilder {
                 Title = $"Warns | {member.Username}",
