@@ -43,7 +43,6 @@ namespace DiscordBotEthan {
 
         public static async Task Warn(DiscordChannel channel, DiscordUser member, string reason) {
             var WarnS = await PlayerSystem.GetPlayer(member.Id);
-            bool IsMuted = false;
 
             if ((WarnS.Warns.Count + 1) >= 3) {
                 _ = Task.Run(async () => {
@@ -61,13 +60,12 @@ namespace DiscordBotEthan {
                         discord.Logger.LogInformation($"Failed the Warn Tempmute process for {member.Mention}");
                     }
                 });
-                IsMuted = true;
                 WarnS.Muted = true;
             }
 
             DiscordEmbedBuilder Warns = new DiscordEmbedBuilder {
                 Title = $"Warns | {member.Username}",
-                Description = $"**{member.Mention} has been warned for the following Reason:**\n{reason}\n**Muted: {(IsMuted ? $"True\nUnmuted on {DateTime.Now.AddMilliseconds(86400000):dd.MM.yyyy HH:mm}" : "False")}**",
+                Description = $"**{member.Mention} has been warned for the following Reason:**\n{reason}\n**Muted: {(WarnS.Muted ? $"True\nUnmuted on {DateTime.Now.AddMilliseconds(86400000):dd.MM.yyyy HH:mm}" : "False")}**",
                 Color = EmbedColor,
                 Footer = new DiscordEmbedBuilder.EmbedFooter { Text = "Made by JokinAce 😎" },
                 Timestamp = DateTimeOffset.Now
