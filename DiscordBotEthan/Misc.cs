@@ -43,11 +43,9 @@ namespace DiscordBotEthan {
 
         public static async Task Warn(DiscordChannel channel, DiscordUser member, string reason) {
             var WarnS = await PlayerSystem.GetPlayer(member.Id);
-            WarnS.Warns.Add(reason);
-
             bool IsMuted = false;
 
-            if (WarnS.Warns.Count >= 3) {
+            if ((WarnS.Warns.Count + 1) >= 3) {
                 _ = Task.Run(async () => {
                     try {
                         DiscordRole muterole = channel.Guild.GetRole(MutedRole);
@@ -66,7 +64,6 @@ namespace DiscordBotEthan {
                 IsMuted = true;
                 WarnS.Muted = true;
             }
-            WarnS.Save(member.Id);
 
             DiscordEmbedBuilder Warns = new DiscordEmbedBuilder {
                 Title = $"Warns | {member.Username}",
@@ -75,7 +72,10 @@ namespace DiscordBotEthan {
                 Footer = new DiscordEmbedBuilder.EmbedFooter { Text = "Made by JokinAce 😎" },
                 Timestamp = DateTimeOffset.Now
             };
-            await channel.SendMessageAsync(embed: Warns);
+            var msg = await channel.SendMessageAsync(embed: Warns);
+
+            WarnS.Warns.Add($"{reason} | {msg.JumpLink}");
+            WarnS.Save(member.Id);
         }
     }
 }
