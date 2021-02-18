@@ -65,7 +65,7 @@ namespace DiscordBotEthan {
                     await args.Message.DeleteAsync();
                     await Misc.Warn(args.Channel, args.Author, "Invite Link");
                 } else if (args.Message.Content.ToLower().Contains("nigger") || args.Message.Content.ToLower().Contains("nigga")) {
-                    await Misc.Warn(args.Channel, args.Author, "Saying the N-Word");
+                    await Misc.Warn(args.Channel, args.Author, $"Saying the N-Word: {args.Message.JumpLink}");
 
                     await new DiscordMessageBuilder()
                         .WithContent("Keep up the racism and you will get banned\nUse nig, nibba instead atleast")
