@@ -72,7 +72,7 @@ namespace DiscordBotEthan {
             };
             var msg = await channel.SendMessageAsync(embed: Warns);
 
-            WarnS.Warns.Add($"{reason} | {msg.JumpLink}");
+            WarnS.Warns.Add($"{reason} | [Event]({msg.JumpLink})");
             WarnS.Save(member.Id);
         }
     }
