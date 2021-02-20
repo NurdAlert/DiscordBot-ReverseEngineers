@@ -12,6 +12,7 @@ namespace DiscordBotEthan.Commands {
         public async Task RemindmeCommand(CommandContext ctx, [Description("When to remind you (d/h/m/s) Ex. 7d for 7 Days")] string When, [Description("What to remind you to"), RemainingText] string What) {
             double Time = Misc.TimeConverter(When);
 
+
             DiscordEmbedBuilder Reminder = new DiscordEmbedBuilder {
                 Title = $"Reminder | {ctx.Member.Username}",
                 Description = $"**Ok, I will remind you the following on {DateTime.Now.AddMilliseconds(Time):dd.MM.yyyy HH:mm}:**\n{What}",

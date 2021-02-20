@@ -16,11 +16,11 @@ namespace DiscordBotEthan {
                 throw new ArgumentException();
             else {
                 return (timestring[^1..].ToLower()) switch {
-                    "d" => ConvertDaysToMilliseconds(timestring.Remove(timestring.Length - 1)),
-                    "h" => ConvertHoursToMilliseconds(timestring.Remove(timestring.Length - 1)),
-                    "m" => ConvertMinutesToMilliseconds(timestring.Remove(timestring.Length - 1)),
-                    "s" => ConvertSecondsToMilliseconds(timestring.Remove(timestring.Length - 1)),
-                    _ => throw new ArgumentException(),
+                    "d" => ConvertDaysToMilliseconds(timestring.Remove(timestring.Length - 1).Replace(".",",")),
+                    "h" => ConvertHoursToMilliseconds(timestring.Remove(timestring.Length - 1).Replace(".", ",")),
+                    "m" => ConvertMinutesToMilliseconds(timestring.Remove(timestring.Length - 1).Replace(".", ",")),
+                    "s" => ConvertSecondsToMilliseconds(timestring.Remove(timestring.Length - 1).Replace(".", ",")),
+                    _ => throw new ArgumentException()
                 };
             }
 
