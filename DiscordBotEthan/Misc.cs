@@ -2,21 +2,23 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static DiscordBotEthan.Program;
 
 namespace DiscordBotEthan {
 
-    public class Misc {
+    public static class Misc {
+
+        public static string Fuck(this string str, string what) {
+            return str.Replace(what, null);
+        }
 
         public static double TimeConverter(string timestring) { // Takes 7d -> 7 DaysConverter() -> 604,800,000 Milliseconds
-
             if (timestring.Remove(timestring.Length - 1).Any(x => char.IsLetter(x)))
                 throw new ArgumentException();
             else {
                 return (timestring[^1..].ToLower()) switch {
-                    "d" => ConvertDaysToMilliseconds(timestring.Remove(timestring.Length - 1).Replace(".",",")),
+                    "d" => ConvertDaysToMilliseconds(timestring.Remove(timestring.Length - 1).Replace(".", ",")),
                     "h" => ConvertHoursToMilliseconds(timestring.Remove(timestring.Length - 1).Replace(".", ",")),
                     "m" => ConvertMinutesToMilliseconds(timestring.Remove(timestring.Length - 1).Replace(".", ",")),
                     "s" => ConvertSecondsToMilliseconds(timestring.Remove(timestring.Length - 1).Replace(".", ",")),
@@ -44,6 +46,8 @@ namespace DiscordBotEthan {
         public static async Task Warn(DiscordChannel channel, DiscordUser member, string reason) {
             var WarnS = await PlayerSystem.GetPlayer(member.Id);
 
+            bool LocalMute = false;
+
             if ((WarnS.Warns.Count + 1) >= 3) {
                 _ = Task.Run(async () => {
                     try {
@@ -61,11 +65,12 @@ namespace DiscordBotEthan {
                     }
                 });
                 WarnS.Muted = true;
+                LocalMute = true;
             }
 
             DiscordEmbedBuilder Warns = new DiscordEmbedBuilder {
                 Title = $"Warns | {member.Username}",
-                Description = $"**{member.Mention} has been warned for the following Reason:**\n{reason}\n**Muted: {(WarnS.Muted ? $"True\nUnmuted on {DateTime.Now.AddMilliseconds(86400000):dd.MM.yyyy HH:mm}" : "False")}**",
+                Description = $"**{member.Mention} has been warned for the following Reason:**\n{reason}\n**Muted: {(LocalMute ? $"True\nUnmuted on {DateTime.Now.AddMilliseconds(86400000):dd.MM.yyyy HH:mm}" : "False")}**",
                 Color = EmbedColor,
                 Footer = new DiscordEmbedBuilder.EmbedFooter { Text = "Made by JokinAce 😎" },
                 Timestamp = DateTimeOffset.Now

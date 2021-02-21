@@ -9,7 +9,7 @@ using static DiscordBotEthan.Program;
 
 namespace DiscordBotEthan {
 
-    public class EventHandlers {
+    public static class EventHandlers {
 
         public static Task Discord_Ready(DiscordClient dc, DSharpPlus.EventArgs.ReadyEventArgs args) {
             _ = Task.Run(async () => {
@@ -61,7 +61,7 @@ namespace DiscordBotEthan {
                             await Misc.Warn(args.Channel, args.Author, "Uploading a EXE File");
                         }
                     }
-                } else if (args.Message.Content.Replace(" ", "").Replace(".", "").ToLower().Contains("discordgg")) {
+                } else if (args.Message.Content.Fuck(" ").Fuck(".").ToLower().Contains("discordgg")) {
                     await args.Message.DeleteAsync();
                     await Misc.Warn(args.Channel, args.Author, "Invite Link");
                 } else if (args.Message.Content.ToLower().Contains("nigger") || args.Message.Content.ToLower().Contains("nigga")) {
