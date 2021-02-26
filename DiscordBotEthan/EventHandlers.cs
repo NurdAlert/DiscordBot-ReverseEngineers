@@ -45,7 +45,7 @@ namespace DiscordBotEthan {
                 }
                 PS.Save(args.Author.Id);
 
-                if (gen.Next(500) == 1) {
+                if (new Random().Next(500) == 1) {
                     using WebClient client = new WebClient();
 
                     await new DiscordMessageBuilder()
