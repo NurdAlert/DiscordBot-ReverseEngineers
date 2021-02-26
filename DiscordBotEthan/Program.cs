@@ -71,6 +71,7 @@ namespace DiscordBotEthan {
 
             public void Save(ulong id) {
                 File.WriteAllText($"./Players/{id}.json", JsonConvert.SerializeObject(this));
+                GC.Collect();
             }
         }
 
