@@ -65,13 +65,9 @@ namespace DiscordBotEthan {
 
             public static async Task<PlayerSystem> GetPlayer(ulong id) {
                 if (!File.Exists($"./Players/{id}.json"))
-                    File.WriteAllText($"./Players/{id}.json", File.ReadAllText($"./Players/playertemplate.json"));
+                    return JsonConvert.DeserializeObject<PlayerSystem>(await File.ReadAllTextAsync($"./Players/playertemplate.json"));
 
-                string json;
-                using (StreamReader sr = new StreamReader(File.OpenRead($"./Players/{id}.json"), new UTF8Encoding(false))) {
-                    json = await sr.ReadToEndAsync().ConfigureAwait(false);
-                }
-                return JsonConvert.DeserializeObject<PlayerSystem>(json);
+                return JsonConvert.DeserializeObject<PlayerSystem>(await File.ReadAllTextAsync($"./Players/{id}.json"));
             }
 
             public void Save(ulong id) {
