@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DiscordBotEthan {
@@ -28,15 +27,14 @@ namespace DiscordBotEthan {
 
         private static async Task MainAsync() {
             discord = new DiscordClient(new DiscordConfiguration {
-                Token = "",
+                Token = "ODAxNTQ4MjY0NzA0OTY2NzA3.YAiR_g.AmeQ1A6od8r8qkby8e4v6z6h3as",
                 TokenType = TokenType.Bot,
                 MinimumLogLevel = LogLevel.Information,
                 Intents = DiscordIntents.GuildMembers | DiscordIntents.AllUnprivileged
             });
 
             CommandsNextExtension commands = discord.UseCommandsNext(new CommandsNextConfiguration() {
-                StringPrefixes = new[] { "." },
-                EnableMentionPrefix = false
+                StringPrefixes = new[] { "." }
             });
 
             discord.Ready += EventHandlers.Discord_Ready;
@@ -71,7 +69,6 @@ namespace DiscordBotEthan {
 
             public void Save(ulong id) {
                 File.WriteAllText($"./Players/{id}.json", JsonConvert.SerializeObject(this));
-                GC.Collect();
             }
         }
 

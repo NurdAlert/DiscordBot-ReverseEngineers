@@ -14,7 +14,7 @@ namespace DiscordBotEthan.Commands {
             } else {
                 await ctx.RespondAsync("Heads");
             }
-            GC.Collect();
+
         }
     }
 }
