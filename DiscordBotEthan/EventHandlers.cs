@@ -6,6 +6,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using static DiscordBotEthan.Program;
+using JokinsCommon;
 
 namespace DiscordBotEthan {
 
@@ -61,7 +62,7 @@ namespace DiscordBotEthan {
                             await Misc.Warn(args.Channel, args.Author, "Uploading a EXE File");
                         }
                     }
-                } else if (args.Message.Content.Fuck(" ").Fuck(".").ToLower().Contains("discordgg")) {
+                } else if (args.Message.Content.RemoveString(new string[] { " ", "." }).ToLower().Contains("discordgg")) {
                     await args.Message.DeleteAsync();
                     await Misc.Warn(args.Channel, args.Author, "Invite Link");
                 } else if (args.Message.Content.ToLower().Contains("nigger") || args.Message.Content.ToLower().Contains("nigga")) {
