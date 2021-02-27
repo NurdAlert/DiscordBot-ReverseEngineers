@@ -43,9 +43,9 @@ namespace DiscordBotEthan {
                     PS.LastMessages.Clear();
                     PS.LastMessages.Add(args.Message.Content);
                 }
-                PS.Save(args.Author.Id);
+                await PS.Save(args.Author.Id);
 
-                if (gen.Next(500) == 1) {
+                if (new Random().Next(500) == 1) {
                     using WebClient client = new WebClient();
 
                     await new DiscordMessageBuilder()
@@ -90,7 +90,7 @@ namespace DiscordBotEthan {
                         await Task.Delay(86400000);
                         var PS = await PlayerSystem.GetPlayer(args.Member.Id);
                         PS.Muted = false;
-                        PS.Save(args.Member.Id);
+                        await PS.Save(args.Member.Id);
                         await args.Member.RevokeRoleAsync(MutedRole);
                     } catch (Exception) {
                         dc.Logger.LogInformation($"Failed the Mute Bypass detection process for {args.Member.Mention}");

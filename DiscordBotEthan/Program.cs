@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DiscordBotEthan {
@@ -19,7 +18,6 @@ namespace DiscordBotEthan {
         public static DiscordColor EmbedColor = new DiscordColor("#3299E0");
         public static readonly ulong MutedRole = 765286908133638204;
         public static readonly ulong LearnerRole = 734242782092329101;
-        public static readonly Random gen = new Random();
         public static readonly string[] Statuses = new[] { "Allah is watchin", "Despacito", "Fuck", "Janitor cleanup", "CSGO and Cheating", "EAC Bypass" };
 
         private static void Main() {
@@ -36,8 +34,7 @@ namespace DiscordBotEthan {
             });
 
             CommandsNextExtension commands = discord.UseCommandsNext(new CommandsNextConfiguration() {
-                StringPrefixes = new[] { "." },
-                EnableMentionPrefix = false
+                StringPrefixes = new[] { "." }
             });
 
             discord.Ready += EventHandlers.Discord_Ready;
@@ -70,8 +67,8 @@ namespace DiscordBotEthan {
                 return JsonConvert.DeserializeObject<PlayerSystem>(await File.ReadAllTextAsync($"./Players/{id}.json"));
             }
 
-            public void Save(ulong id) {
-                File.WriteAllText($"./Players/{id}.json", JsonConvert.SerializeObject(this));
+            public async Task Save(ulong id) {
+                await File.WriteAllTextAsync($"./Players/{id}.json", JsonConvert.SerializeObject(this));
             }
         }
 
