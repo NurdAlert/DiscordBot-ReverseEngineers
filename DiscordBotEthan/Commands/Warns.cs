@@ -14,7 +14,7 @@ namespace DiscordBotEthan.Commands {
                 case "clear": {
                         var WarnS = await Program.PlayerSystem.GetPlayer(member.Id);
                         WarnS.Warns.Clear();
-                        WarnS.Save(member.Id);
+                        await WarnS.Save(member.Id);
 
                         DiscordEmbedBuilder Warns = new DiscordEmbedBuilder {
                             Title = $"Warns | {member.Username}",

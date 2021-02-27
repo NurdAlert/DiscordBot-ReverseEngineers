@@ -67,8 +67,8 @@ namespace DiscordBotEthan {
                 return JsonConvert.DeserializeObject<PlayerSystem>(await File.ReadAllTextAsync($"./Players/{id}.json"));
             }
 
-            public void Save(ulong id) {
-                File.WriteAllText($"./Players/{id}.json", JsonConvert.SerializeObject(this));
+            public async Task Save(ulong id) {
+                await File.WriteAllTextAsync($"./Players/{id}.json", JsonConvert.SerializeObject(this));
             }
         }
 

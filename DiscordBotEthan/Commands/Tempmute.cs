@@ -13,7 +13,7 @@ namespace DiscordBotEthan.Commands {
         public async Task TempmuteCommand(CommandContext ctx, [Description("The Member to mute (ID, Mention, Username)")] DiscordMember member, [RemainingText, Description("Length (d/h/m/s) Ex. 7d for 7 Days")] string time) {
             var PS = await Program.PlayerSystem.GetPlayer(member.Id);
             PS.Muted = true;
-            PS.Save(member.Id);
+            await PS.Save(member.Id);
 
             double Time = Misc.TimeConverter(time);
 
@@ -33,7 +33,7 @@ namespace DiscordBotEthan.Commands {
                     await Task.Delay((int)Time);
                     var PS = await Program.PlayerSystem.GetPlayer(member.Id);
                     PS.Muted = false;
-                    PS.Save(member.Id);
+                    await PS.Save(member.Id);
                     await member.RevokeRoleAsync(MutedRole);
                 } catch (Exception) {
                     ctx.Client.Logger.LogInformation($"Failed the Tempmute process for {member.Mention}");

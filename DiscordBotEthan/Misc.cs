@@ -58,7 +58,7 @@ namespace DiscordBotEthan {
                         await Task.Delay(86400000);
                         var WarnS = await PlayerSystem.GetPlayer(member.Id);
                         WarnS.Muted = false;
-                        WarnS.Save(member.Id);
+                        await WarnS.Save(member.Id);
                         await CMember.RevokeRoleAsync(muterole);
                     } catch (Exception) {
                         discord.Logger.LogInformation($"Failed the Warn Tempmute process for {member.Mention}");
@@ -78,7 +78,7 @@ namespace DiscordBotEthan {
             var msg = await channel.SendMessageAsync(embed: Warns);
 
             WarnS.Warns.Add($"{reason} | [Event]({msg.JumpLink})");
-            WarnS.Save(member.Id);
+            await WarnS.Save(member.Id);
         }
     }
 }
