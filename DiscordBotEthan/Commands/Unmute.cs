@@ -13,7 +13,7 @@ namespace DiscordBotEthan.Commands {
             await member.RevokeRoleAsync(ctx.Guild.GetRole(Program.MutedRole));
             var PS = await Program.PlayerSystem.GetPlayer(member.Id);
             PS.Muted = false;
-            PS.Save(member.Id);
+            await PS.Save(member.Id);
 
             DiscordEmbedBuilder Unmute = new DiscordEmbedBuilder {
                 Title = $"Unmute | {member.Username}",
