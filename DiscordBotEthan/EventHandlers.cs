@@ -113,7 +113,7 @@ namespace DiscordBotEthan {
 
                 case DSharpPlus.CommandsNext.Exceptions.ChecksFailedException _:
                     await new DiscordMessageBuilder()
-                        .WithContent("The FBI has been contacted (You don't have **the** (Thx Sven for correction) rights for that **c**ommand (Another correction))")
+                        .WithContent("The FBI has been contacted (You don't have the rights for that command)")
                         .WithReply(args.Context.Message.Id, true)
                         .SendAsync(args.Context.Channel);
 

@@ -46,7 +46,7 @@ namespace DiscordBotEthan.Commands {
                     break;
 
                 default:
-                    throw new ArgumentNullException();
+                    throw new ArgumentException();
             }
         }
     }
